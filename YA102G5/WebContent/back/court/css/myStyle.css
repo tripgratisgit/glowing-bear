@@ -1,0 +1,32 @@
+.bg-image {
+  position: fixed;
+  left: 0;
+  right: 0;
+  
+
+  display: block;
+  
+  background-image: url(../img/pingpong.jpg);
+  width: 100%;
+  height: 100%;
+
+  -webkit-filter: blur(10px);
+  -moz-filter: blur(10px);
+  -o-filter: blur(10px);
+  -ms-filter: blur(10px);
+  filter: blur(10px);
+}
+
+.background-content {
+  position: fixed;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+
+.footer_right{
+  float:right;
+}
