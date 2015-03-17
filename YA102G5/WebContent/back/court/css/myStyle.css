@@ -30,3 +30,13 @@
 .footer_right{
   float:right;
 }
+
+.label-primary,
+.badge-primary {
+  background-color: #0044cc;
+}
+
+.label-purple,
+.badge-purple {
+  background-color: #6B0AC9;
+}

@@ -1,4 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="java.util.*"%>
+<%@ page import="com.court.model.*"%>
+
+<%
+	CourtService cSvc = new CourtService();
+	List<CourtVO> list = cSvc.getAll();
+	pageContext.setAttribute("list",list);
+%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -147,65 +157,7 @@
                             </ul>
                         </li>
                         <!-- start: Notifications Dropdown -->
-                    <!--     <li class="dropdown hidden-phone">
-                            <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-                                <i class="halflings-icon white tasks"></i>
-                            </a>
-                            <ul class="dropdown-menu tasks">
-                                <li class="dropdown-menu-title">
-                                    <span>You have 17 tasks in progress</span>
-                                    <a href="#refresh"><i class="icon-repeat"></i></a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <span class="header">
-											<span class="title">iOS Development</span>
-                                        <span class="percent"></span>
-                                        </span>
-                                        <div class="taskProgress progressSlim red">80</div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <span class="header">
-											<span class="title">Android Development</span>
-                                        <span class="percent"></span>
-                                        </span>
-                                        <div class="taskProgress progressSlim green">47</div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <span class="header">
-											<span class="title">ARM Development</span>
-                                        <span class="percent"></span>
-                                        </span>
-                                        <div class="taskProgress progressSlim yellow">32</div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <span class="header">
-											<span class="title">ARM Development</span>
-                                        <span class="percent"></span>
-                                        </span>
-                                        <div class="taskProgress progressSlim greenLight">63</div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <span class="header">
-											<span class="title">ARM Development</span>
-                                        <span class="percent"></span>
-                                        </span>
-                                        <div class="taskProgress progressSlim orange">80</div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-menu-sub-footer">View all tasks</a>
-                                </li>
-                            </ul>
-                        </li> -->
+                   
                         <!-- end: Notifications Dropdown -->
                         <!-- start: Message Dropdown -->
                         <li class="dropdown hidden-phone">
@@ -412,51 +364,46 @@
                     <div class="box-header" data-original-title>
                         <h2><i class="halflings-icon user"></i><span class="break"></span>場地管理</h2>
                         <div class="box-icon">
-                            <a href="#" class="btn-setting"><i class="halflings-icon wrench"></i></a>
+                            <a href="#" class="btn-setting"><span class="label label-primary">列出所有</span></a>
+                            <a href="#" class="btn-setting"><span class="label label-purple">列出所有</span></a>
+                            <a href="#" class="btn-setting"><span class="label label-success">已審核</span></a>
+                            <a href="#" class="btn-setting"><span class="label label-warning">待審核</span></a>
+                            <a href="#" class="btn-setting"><span class="label">已失效</span></a>
+                            <a href="#" class="btn-setting"><span class="label label-important"><i class="halflings-icon plus"></i>新增</span></a>
                             <a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
-                            <a href="#" class="btn-close"><i class="halflings-icon remove"></i></a>
+                            <!-- <a href="#" class="btn-close"><i class="halflings-icon remove"></i></a> -->
                         </div>
                     </div>
                     <div class="box-content">
                         <table class="table table-striped table-bordered bootstrap-datatable datatable">
                           <thead>
                               <tr>
-                                  <th>Username</th>
-                                  <th>Date registered</th>
-                                  <th>Role</th>
-                                  <th>Status</th>
-                                  <th>Actions</th>
+                                  <th>場地編號</th>
+                                  <th>場地名稱</th>
+                                  <th>連絡電話</th>
+                                  <th>最後修改時間</th>
+                                  <th>狀態</th>
+                                  <th>處理方式</th>
                               </tr>
                           </thead>   
                           <tbody>
-
-                            <tr>
-                                <td>Dennis Ji</td>
-                                <td class="center">2012/01/21</td>
-                                <td class="center">Staff</td>
-                                <td class="center">
-                                    <span class="label label-success">Active</span>
-                                </td>
-                                <td class="center">
-                                    <a class="btn btn-success" href="#">
-                                        <i class="halflings-icon white zoom-in"></i>                                            
-                                    </a>
-                                    <a class="btn btn-info" href="#">
-                                        <i class="halflings-icon white edit"></i>                                            
-                                    </a>
-                                    <a class="btn btn-danger" href="#">
-                                        <i class="halflings-icon white trash"></i> 
-                                    </a>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>Dennis Ji</td>
-                                <td class="center">2012/08/23</td>
-                                <td class="center">Staff</td>
-                                <td class="center">
-                                    <span class="label label-important">Banned</span>
-                                </td>
+<c:forEach var="courtVO" items="${list}">
+    <tr align='center' valign='middle' ><!--將修改的那一筆加入對比色而已-->
+            <td class="center">${courtVO.cid}</td>
+			<td class="center">${courtVO.cname}</td>
+			<td class="center">${courtVO.ctel}</td>
+			<td class="center">${courtVO.cedit}</td>
+			<td class="center">
+			<c:if test="${courtVO.cstatus==0}"><span class="label label-warning">待審核</span></c:if>
+			<c:if test="${courtVO.cstatus==1}"><span class="label label-success">已審核</span></c:if>
+			<c:if test="${courtVO.cstatus==2}"><span class="label">已失效</span></c:if>
+			<c:if test="${courtVO.cstatus==3}"><span class="label label-important">失效中的失效</span></c:if>
+			
+			</td>
+                                
+                                
+                                
+                   
                                 <td class="center">
                                     <a class="btn btn-success" href="#">
                                         <i class="halflings-icon white zoom-in"></i>                                            
@@ -464,52 +411,17 @@
                                     <a class="btn btn-info" href="#">
                                         <i class="halflings-icon white edit"></i>                                            
                                     </a>
-                                    <a class="btn btn-danger" href="#">
+                                    <c:if test="${courtVO.cstatus!=2}">
+                                    <a class="btn btn-inverse" href="#">
                                         <i class="halflings-icon white trash"></i> 
-                                        
                                     </a>
+                                    </c:if>
                                 </td>
-                            </tr>
-                            <tr>
-                                <td>Dennis Ji</td>
-                                <td class="center">2012/06/01</td>
-                                <td class="center">Admin</td>
-                                <td class="center">
-                                    <span class="label">Inactive</span>
-                                </td>
-                                <td class="center">
-                                    <a class="btn btn-success" href="#">
-                                        <i class="halflings-icon white zoom-in"></i>                                            
-                                    </a>
-                                    <a class="btn btn-info" href="#">
-                                        <i class="halflings-icon white edit"></i>                                            
-                                    </a>
-                                    <a class="btn btn-danger" href="#">
-                                        <i class="halflings-icon white trash"></i> 
-                                        
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Dennis Ji</td>
-                                <td class="center">2012/03/01</td>
-                                <td class="center">Member</td>
-                                <td class="center">
-                                    <span class="label label-warning">Pending</span>
-                                </td>
-                                <td class="center">
-                                    <a class="btn btn-success" href="#">
-                                        <i class="halflings-icon white zoom-in"></i>                                            
-                                    </a>
-                                    <a class="btn btn-info" href="#">
-                                        <i class="halflings-icon white edit"></i>                                            
-                                    </a>
-                                    <a class="btn btn-danger" href="#">
-                                        <i class="halflings-icon white trash"></i> 
-                                        
-                                    </a>
-                                </td>
-                            </tr>
+     </tr>
+</c:forEach>
+ 
+     
+       
                             
                           </tbody>
                       </table>            
@@ -532,17 +444,17 @@
     </div>
     <!--/fluid-row-->
 
-    <div class="modal hide fade" id="myModal">
+	<div class="modal hide fade" id="myModal">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">×</button>
-            <h3>Settings</h3>
+            <h3>新增</h3>
         </div>
         <div class="modal-body">
-            <p>Here settings can be configured...</p>
+            <p>您要新增一筆場地資料嗎?</p>
         </div>
         <div class="modal-footer">
-            <a href="#" class="btn" data-dismiss="modal">Close</a>
-            <a href="#" class="btn btn-primary">Save changes</a>
+            <a href="#" class="btn" data-dismiss="modal">取消</a>
+            <a href="#" class="btn btn-primary">確定</a>
         </div>
     </div>
 
@@ -574,7 +486,7 @@
 
     <script src='js/fullcalendar.min.js'></script>
 
-    <script src='js/jquery.dataTables.min.js'></script>
+    <script src='js/jquery.dataTables.js'></script>
 
     <script src="js/excanvas.js"></script>
     <script src="js/jquery.flot.js"></script>
@@ -614,6 +526,8 @@
 
     <script src="js/custom.js"></script>
     <!-- end: JavaScript-->
+
+
 
 </body>
 </html>
